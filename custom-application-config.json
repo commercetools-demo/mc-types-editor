@@ -1,0 +1,30 @@
+{
+  "name": "Mc Types editer",
+  "entryPointUriPath": "mc-types-editer",
+  "cloudIdentifier": "gcp-us",
+  "env": {
+    "production": {
+      "url": "https://<your_app_hostname>"
+    }
+  },
+  "menuLinks": {
+    "icon": "GearIcon",
+    "defaultLabel": "Mc Types Editer",
+    "labelAllLocales": [],
+    "permissions": [],
+    "submenuLinks": [
+      {
+        "uriPath": "channels",
+        "defaultLabel": "Channels",
+        "labelAllLocales": [],
+        "permissions": []
+      },
+      {
+        "uriPath": "types",
+        "defaultLabel": "Types",
+        "labelAllLocales": [],
+        "permissions": []
+      }
+    ]
+  }
+}

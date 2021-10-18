@@ -1,0 +1,42 @@
+query FetchTypes(
+  $locale: Locale!
+  $limit: Int!
+  $offset: Int!
+  $sort: [String!]
+) {
+  typeDefinitions(limit: $limit, offset: $offset, sort: $sort) {
+    total
+    count
+    offset
+    results {
+      id
+      name(locale: $locale)
+      description(locale: $locale)
+      key
+      resourceTypeIds
+      fieldDefinitions {
+        name
+        required
+        inputHint
+        label(locale: $locale)
+        type {
+          name
+        }
+      }
+      createdAt
+      createdBy {
+        isPlatformClient
+        externalUserId
+        anonymousId
+        clientId
+      }
+      lastModifiedAt,
+      lastModifiedBy {
+        isPlatformClient
+        externalUserId
+        anonymousId
+        clientId
+      }
+    }
+  }
+}
