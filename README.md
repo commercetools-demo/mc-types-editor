@@ -31,7 +31,7 @@ $ create-mc-app <folder_name> --template starter
 
 Once the template has been installed, you need to check and adjust the `custom-application-config.json` file accordingly. [Reference: Custom Application Config](https://docs.commercetools.com/custom-applications/development/application-config).
 
-> You can additionally configure [editer support](https://docs.commercetools.com/custom-applications/development/application-config#editer-support) to provide hints and code completion.
+> You can additionally configure [editor support](https://docs.commercetools.com/custom-applications/development/application-config#editor-support) to provide hints and code completion.
 
 The template provides the bare minimum configuration setup, so you might not need to change anything specific for now.
 

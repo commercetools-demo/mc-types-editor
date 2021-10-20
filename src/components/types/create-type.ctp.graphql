@@ -1,0 +1,19 @@
+mutation CreateTypeMutation(
+  $key: String!, 
+  $name: [LocalizedStringItemInputType!]!,
+  $resourceTypeIds: [String!]!)
+  {
+    createTypeDefinition(draft: {
+      key: $key,
+      name: $name,
+      resourceTypeIds: $resourceTypeIds
+    })
+    {
+      id
+      key
+      nameAllLocales {
+        locale
+        value
+      }
+    }
+  }

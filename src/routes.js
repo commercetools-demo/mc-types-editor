@@ -4,6 +4,7 @@ import { PageUnauthorized } from '@commercetools-frontend/application-components
 import Spacings from '@commercetools-uikit/spacings';
 import Channels from './components/channels';
 import TypesList from './components/types/list';
+import CreateType from './components/types/new';
 import Welcome from './components/welcome';
 import { PERMISSIONS } from './constants/permissions';
 
@@ -30,7 +31,7 @@ const ApplicationRoutes = () => {
         </Route>
         <Route path={`${match.path}/types/new`}>
           {canViewChannels ? (
-            <TypesList />
+            <CreateType />
           ) : (
             <PageUnauthorized />
           )}

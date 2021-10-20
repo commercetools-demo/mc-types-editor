@@ -108,7 +108,7 @@ const Types = (props) => {
         <Spacings.Stack scale="l">
           <div>
             <Text.Body intlMessage={messages.noResults} />
-              <Link to='new'>
+              <Link to='types/new'>
                 <FormattedMessage {...messages.addType} />
               </Link>
           </div>
@@ -150,8 +150,10 @@ const Types = (props) => {
   );
 };
 Types.displayName = 'Types';
+/* remove?
 Types.propTypes = {
   linkToWelcome: PropTypes.string.isRequired,
 };
+*/
 
 export default Types;

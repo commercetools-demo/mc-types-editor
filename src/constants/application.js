@@ -1,2 +1,2 @@
-export const entryPointUriPath = 'mc-types-editer';
+export const entryPointUriPath = 'mc-types-editor';
 

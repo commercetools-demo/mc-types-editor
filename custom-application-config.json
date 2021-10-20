@@ -1,6 +1,6 @@
 {
-  "name": "Mc Types editer",
-  "entryPointUriPath": "mc-types-editer",
+  "name": "Mc Types editor",
+  "entryPointUriPath": "mc-types-editor",
   "cloudIdentifier": "gcp-us",
   "env": {
     "production": {
@@ -9,7 +9,7 @@
   },
   "menuLinks": {
     "icon": "GearIcon",
-    "defaultLabel": "Mc Types Editer",
+    "defaultLabel": "Mc Types Editor",
     "labelAllLocales": [],
     "permissions": [],
     "submenuLinks": [
