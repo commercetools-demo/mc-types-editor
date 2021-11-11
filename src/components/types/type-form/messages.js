@@ -41,6 +41,11 @@ export default defineMessages({
     description: 'Title for fieldDefinitions name field',
     defaultMessage: 'Name',
   },
+  descriptionTitle: {
+    id: 'Type.form.description.title',
+    description: 'Description for fieldDefinitions description field',
+    defaultMessage: 'Description',
+  },
   labelTitle: {
     id: 'Type.form.label.title',
     description: 'Title for fieldDefinitions label field',

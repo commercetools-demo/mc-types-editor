@@ -11,12 +11,16 @@ const initializeEmptyValues = () => ({
   name: {
     en: ''
   },
+  description: {
+    en: ''
+  },
   resourceTypeIds: [],
 });
 
 const initializeTypeValues = (type) => ({
   key: type.key,
   name: type.name,
+  description: type.description,
   label: type.label,
   resourceTypeIds: type.resourceTypeIds
 });
@@ -34,6 +38,7 @@ const TypeForm = ({ type, onSubmit }) => {
   const validationSchema = yup.object({
     key: stringSchema,
     name: stringSchema,
+    description: stringSchema,
     resourceTypeIds: yup.array().of(yup.string())
   });
 

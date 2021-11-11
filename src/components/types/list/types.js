@@ -90,63 +90,65 @@ const Types = (props) => {
     visibleColumnKeys: tableData.visibleColumnKeys,
   };
   return (
-    <Spacings.Stack scale="xl">
-      <Spacings.Inline justifyContent="space-between">
-        <Text.Headline as="h2" intlMessage={messages.title} />
-        <SecondaryButton
-          onClick={() => {
-            push(`/${project.key}/mc-types-editor/types/new`);
-          }}
-          iconLeft={<PlusBoldIcon />}
-          label={intl.formatMessage(messages.addType)}
-        />
-      </Spacings.Inline>
-
-      {loading && <LoadingSpinner />}
-
-      {data?.typeDefinitions && data?.typeDefinitions?.total == 0 ? (
-        <Spacings.Stack scale="l">
-          <div>
-            <Text.Body intlMessage={messages.noResults} />
-              <Link to='types/new'>
-                <FormattedMessage {...messages.addType} />
-              </Link>
-          </div>
-        </Spacings.Stack>
-      ) : null}
-
-      {data?.typeDefinitions && data?.typeDefinitions?.total > 0 ? (
-        <Spacings.Stack scale="l">
-          
-          <DataTableManager 
-            columns={tableData.visibleColumns}
-            columnManager={columnManager}
-            onSettingsChange={(action, nextValue) => {
-              tableSettingsChangeHandler[action](nextValue);
+    <Spacings.Inset scale="l">
+      <Spacings.Stack scale="xl">
+        <Spacings.Inline justifyContent="space-between">
+          <Text.Headline as="h2" intlMessage={messages.title} />
+          <SecondaryButton
+            onClick={() => {
+              push(`/${project.key}/mc-types-editor/types/new`);
             }}
-          >
-            <DataTable
-              isCondensed
-              rows={data.typeDefinitions.results}
-              itemRenderer={itemRendered}
-              sortedBy={tableSorting.value.key}
-              sortDirection={tableSorting.value.order}
-              onSortChange={tableSorting.onChange}
-              onRowClick={(row) => {
-                push(`/${project.key}/mc-types-editor/types/${row.id}`);
-              }}
-            />
-          </DataTableManager>
-          <Pagination
-            page={page.value}
-            onPageChange={page.onChange}
-            perPage={perPage.value}
-            onPerPageChange={perPage.onChange}
-            totalItems={data.typeDefinitions.total}
+            iconLeft={<PlusBoldIcon />}
+            label={intl.formatMessage(messages.addType)}
           />
-        </Spacings.Stack>
-      ) : null}
-    </Spacings.Stack>
+        </Spacings.Inline>
+
+        {loading && <LoadingSpinner />}
+
+        {data?.typeDefinitions && data?.typeDefinitions?.total == 0 ? (
+          <Spacings.Stack scale="l">
+            <div>
+              <Text.Body intlMessage={messages.noResults} />
+                <Link to='types/new'>
+                  <FormattedMessage {...messages.addType} />
+                </Link>
+            </div>
+          </Spacings.Stack>
+        ) : null}
+
+        {data?.typeDefinitions && data?.typeDefinitions?.total > 0 ? (
+          <Spacings.Stack scale="l">
+            
+            <DataTableManager 
+              columns={tableData.visibleColumns}
+              columnManager={columnManager}
+              onSettingsChange={(action, nextValue) => {
+                tableSettingsChangeHandler[action](nextValue);
+              }}
+            >
+              <DataTable
+                isCondensed
+                rows={data.typeDefinitions.results}
+                itemRenderer={itemRendered}
+                sortedBy={tableSorting.value.key}
+                sortDirection={tableSorting.value.order}
+                onSortChange={tableSorting.onChange}
+                onRowClick={(row) => {
+                  push(`/${project.key}/mc-types-editor/types/${row.id}`);
+                }}
+              />
+            </DataTableManager>
+            <Pagination
+              page={page.value}
+              onPageChange={page.onChange}
+              perPage={perPage.value}
+              onPerPageChange={perPage.onChange}
+              totalItems={data.typeDefinitions.total}
+            />
+          </Spacings.Stack>
+        ) : null}
+      </Spacings.Stack>
+    </Spacings.Inset>
   );
 };
 Types.displayName = 'Types';

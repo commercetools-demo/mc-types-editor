@@ -20,7 +20,6 @@ const ApplicationRoutes = () => {
   });
 
   return (
-    <Spacings.Inset scale="l">
       <Switch>
         <Route path={`${match.path}/channels`}>
           {canViewChannels ? (
@@ -54,7 +53,6 @@ const ApplicationRoutes = () => {
           <Welcome />
         </Route>
       </Switch>
-    </Spacings.Inset>
   );
 };
 ApplicationRoutes.displayName = 'ApplicationRoutes';

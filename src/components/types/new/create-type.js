@@ -9,7 +9,6 @@ import {
 } from '@commercetools-frontend/constants';
 import Spacings from '@commercetools-uikit/spacings';
 import BackToList from '../../core/back-to-list';
-import TabContainer from '../../core/tab-container';
 import View from '../../core/view';
 import ViewHeader from '../../core/view-header';
 import { useShowSideNotification } from '../../../hooks';
@@ -37,9 +36,9 @@ const CreateType = () => {
     context: {
       target: GRAPHQL_TARGETS.COMMERCETOOLS_PLATFORM,
     },
-    onCompleted() {
+    onCompleted(result) {
       showSuccessNotification();
-      push(backToList);
+      push(`/${project.key}/mc-types-editor/types/${result.createTypeDefinition.id}`);
     },
     onError({ message }) {
       showErrorNotification({
@@ -51,19 +50,23 @@ const CreateType = () => {
   });
 
   function onSubmit(values) {
-    const { key, name, resourceTypeIds } = values;
+    const { key, name, description, resourceTypeIds } = values;
 
-    console.log('submit',key,name,resourceTypeIds);
     // Convert name from the format created by the text field to the format required by GraphQL
     let names=[];
     for(const k in name) {
       names.push({"locale":k,"value":name[k]})
+    }
+    let descriptions=[];
+    for(const k in description) {
+      descriptions.push({"locale":k,"value":description[k]})
     }
 
     return createType({
       variables: {         
         key,
         name: names,
+        description: descriptions,
         resourceTypeIds: resourceTypeIds
       }
     });
@@ -80,11 +83,11 @@ const CreateType = () => {
           />
         }
       />
-      <TabContainer>
+      <Spacings.Inset scale="l">
         <Spacings.Stack scale="m">
           <TypeForm onSubmit={onSubmit} />
         </Spacings.Stack>
-      </TabContainer>
+      </Spacings.Inset>
     </View>
   );
 };

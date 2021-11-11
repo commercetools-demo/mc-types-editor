@@ -1,16 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
-import Card from '@commercetools-uikit/card';
-import CollapsiblePanel from '@commercetools-uikit/collapsible-panel';
-import Constraints from '@commercetools-uikit/constraints';
+import {
+  Constraints,
+  CollapsiblePanel,
+  TextField,
+  LocalizedTextField,
+  Card,
+  Grid,
+  customProperties,
+  SelectField,
+  Spacings
+} from '@commercetools-frontend/ui-kit';
 import { PrimaryButton } from '@commercetools-uikit/buttons';
-import LocalizedTextField from '@commercetools-uikit/localized-text-field';
-import { SelectField, TextField } from '@commercetools-uikit/fields';
-import Spacings from '@commercetools-uikit/spacings';
+import { useApplicationContext } from '@commercetools-frontend/application-shell-connectors';
 import messages from './messages';
 import styles from './form.mod.css';
-import { useApplicationContext } from '@commercetools-frontend/application-shell-connectors';
 import { RESOURCE_TYPES } from './constants';
 
 const resourceTypes = RESOURCE_TYPES.map(t => ({label: t, value: t}));
@@ -40,19 +45,12 @@ const Form = ({
         }
         className={styles.panel}
       >
-        <div className={styles.form}>
-          <Card type="flat" className={styles['field-card']}>
-            <TextField
-              name="key"
-              value={values.key}
-              title={<FormattedMessage {...messages.keyTitle} />}
-              isRequired
-              errors={errors.key}
-              touched={touched.key}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              renderError={(key, error) => error}
-            /> 
+      <Grid
+        gridTemplateColumns={`repeat(2, ${customProperties.constraint11})`}
+        gridGap={customProperties.spacingM}
+      >
+          <Grid.Item>
+            <Card type="flat" className={styles['field-card']}>
             <LocalizedTextField
               name="name"
               selectedLanguage={dataLocale}
@@ -65,6 +63,41 @@ const Form = ({
               onChange={handleChange}
               renderError={(key, error) => error}
             />
+            </Card>
+          </Grid.Item>
+          <Grid.Item>
+            <Card type="flat" className={styles['field-card']}>
+            <LocalizedTextField
+              name="description"
+              selectedLanguage={dataLocale}
+              value={values.description}
+              title={<FormattedMessage {...messages.descriptionTitle} />}
+              isRequired
+              errors={errors.description}
+              touched={touched.description}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              renderError={(key, error) => error}
+            />
+            </Card>
+          </Grid.Item>
+        <Grid.Item>
+          <Card type="flat" className={styles['field-card']}>
+            <TextField
+              name="key"
+              value={values.key}
+              title={<FormattedMessage {...messages.keyTitle} />}
+              isRequired
+              errors={errors.key}
+              touched={touched.key}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              renderError={(key, error) => error}
+            /> 
+            </Card>
+          </Grid.Item>
+          <Grid.Item>
+            <Card type="flat" className={styles['field-card']}>
             <SelectField
               name="resourceTypeIds"
               title={<FormattedMessage {...messages.resourceTypeIdsTitle} />}              
@@ -78,7 +111,8 @@ const Form = ({
               onChange={handleChange}
             />
           </Card>
-        </div>
+        </Grid.Item>
+      </Grid>
       </CollapsiblePanel>
       
       <Constraints.Horizontal constraint="scale">
@@ -101,13 +135,15 @@ Form.propTypes = {
   touched: PropTypes.shape({
     key: PropTypes.bool,
     name: PropTypes.objectOf(PropTypes.bool),
+    description: PropTypes.objectOf(PropTypes.bool),
     resourceTypeIds: PropTypes.bool
-  }),
+  }).isRequired,
   errors: PropTypes.shape({
     key: PropTypes.object,
     name: PropTypes.object,
+    description: PropTypes.object,
     resourceTypeIds: PropTypes.object
-  }),
+  }).isRequired,
   dirty: PropTypes.bool,
   isValid: PropTypes.bool,
   isSubmitting: PropTypes.bool,

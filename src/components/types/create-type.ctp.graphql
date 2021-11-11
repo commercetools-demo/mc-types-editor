@@ -1,11 +1,13 @@
 mutation CreateTypeMutation(
   $key: String!, 
   $name: [LocalizedStringItemInputType!]!,
+  $description: [LocalizedStringItemInputType!]!,
   $resourceTypeIds: [String!]!)
   {
     createTypeDefinition(draft: {
       key: $key,
       name: $name,
+      description: $description,
       resourceTypeIds: $resourceTypeIds
     })
     {
