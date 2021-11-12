@@ -5,6 +5,7 @@ import Spacings from '@commercetools-uikit/spacings';
 import Channels from './components/channels';
 import TypesList from './components/types/list';
 import CreateType from './components/types/new';
+import EditType from './components/types/edit';
 import Welcome from './components/welcome';
 import { PERMISSIONS } from './constants/permissions';
 
@@ -37,7 +38,7 @@ const ApplicationRoutes = () => {
         </Route>
         <Route path={`${match.path}/types/:id`}>
           {canViewChannels ? (
-            <TypesList />
+            <EditType />
           ) : (
             <PageUnauthorized />
           )}

@@ -7,7 +7,9 @@ import {
   NOTIFICATION_KINDS_SIDE,
   GRAPHQL_TARGETS
 } from '@commercetools-frontend/constants';
+import IconButton from '@commercetools-uikit/icon-button';
 import Spacings from '@commercetools-uikit/spacings';
+import { BinLinearIcon } from '@commercetools-uikit/icons';
 import BackToList from '../../core/back-to-list';
 import View from '../../core/view';
 import ViewHeader from '../../core/view-header';
@@ -19,7 +21,7 @@ import { useHistory } from 'react-router-dom';
 
 import messages from './messages';
 
-const EditType = () => {
+const CreateType = () => {
   const { push } = useHistory();
   const intl = useIntl();
   const { project } = useApplicationContext();
@@ -48,6 +50,20 @@ const EditType = () => {
       });
     },
   });
+
+  let state = {
+    isDeleteConfirmationDialogOpen: false,
+  };
+  
+
+  let openConfirmationDialog = () => {
+    this.state.isDeleteConfirmationDialogOpen = true;
+    this.setState({ isDeleteConfirmationDialogOpen: true });
+  };
+
+  let closeConfirmationDialog = () => {
+    this.setState({ isDeleteConfirmationDialogOpen: false });
+  };
 
   function onSubmit(values) {
     const { key, name, description, resourceTypeIds } = values;
@@ -82,6 +98,17 @@ const EditType = () => {
             label={intl.formatMessage(messages.backButton)}
           />
         }
+        commands={
+          <Spacings.Inline alignItems="flexEnd">
+            <IconButton
+                  label={intl.formatMessage(
+                    messages.confirmDeleteTitle
+                  )}
+                  icon={<BinLinearIcon />}
+                  onClick={openConfirmationDialog}
+                />
+          </Spacings.Inline>
+        }
       />
       <Spacings.Inset scale="l">
         <Spacings.Stack scale="m">
@@ -91,6 +118,6 @@ const EditType = () => {
     </View>
   );
 };
-EditType.displayName = 'EditType';
+CreateType.displayName = 'CreateType';
 
-export default EditType;
+export default CreateType;
