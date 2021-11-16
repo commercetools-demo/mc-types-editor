@@ -14,7 +14,7 @@ export default defineMessages({
   keyTitle: {
     id: 'Type.form.key.title',
     description: 'Title for key field',
-    defaultMessage: 'key',
+    defaultMessage: 'Key',
   },
   resourceTypeIdsTitle: {
     id: 'Type.form.resourceTypeIds.title',

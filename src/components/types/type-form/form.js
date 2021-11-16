@@ -30,6 +30,7 @@ const Form = ({
   handleBlur,
   handleChange,
   handleSubmit,
+  editMode,
 }) => {
   
   const intl = useIntl();
@@ -93,6 +94,7 @@ const Form = ({
               onBlur={handleBlur}
               onChange={handleChange}
               renderError={(key, error) => error}
+              isDisabled={editMode}
             /> 
             </Card>
           </Grid.Item>
@@ -109,6 +111,7 @@ const Form = ({
               touched={touched.resourceTypeIds}
               onBlur={handleBlur}
               onChange={handleChange}
+              isDisabled={editMode}
             />
           </Card>
         </Grid.Item>
@@ -150,6 +153,7 @@ Form.propTypes = {
   handleBlur: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  editMode: PropTypes.bool,
 };
 
 export default Form;

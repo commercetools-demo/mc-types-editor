@@ -67,7 +67,8 @@ const Welcome = () => {
   const intl = useIntl();
 
   return (
-    <Constraints.Horizontal max={16}>
+    
+    <Spacings.Inset scale="l">
       <Spacings.Stack scale="xl">
         <Text.Headline as="h1" intlMessage={messages.title} />
         <div>
@@ -89,8 +90,8 @@ const Welcome = () => {
             gridTemplateColumns="repeat(3, 1fr)"
           >
             <InfoCard
-              title={intl.formatMessage(messages.cardDocumentationTitle)}
-              content={intl.formatMessage(messages.cardDocumentationContent)}
+              title={intl.formatMessage(messages.cardTypesTitle)}
+              content={intl.formatMessage(messages.cardTypesContent)}
               linkTo="https://docs.commercetools.com/custom-applications/getting-started/what-is-a-custom-application"
               isExternal
             />
@@ -108,7 +109,7 @@ const Welcome = () => {
           </Grid>
         </Spacings.Stack>
       </Spacings.Stack>
-    </Constraints.Horizontal>
+    </Spacings.Inset>
   );
 };
 Welcome.displayName = 'Welcome';

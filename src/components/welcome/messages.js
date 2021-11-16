@@ -3,20 +3,20 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   title: {
     id: 'Welcome.title',
-    defaultMessage: 'Develop applications for the Merchant Center',
+    defaultMessage: 'Enhanced Developer Settings',
   },
   subtitle: {
     id: 'Welcome.subtitle',
     defaultMessage:
-      'Welcome to Custom Applications! To get started, inspect the source code to get familiar with the setup, the folder structure, the development tools, etc. and read the README file for additional information.',
+      'View and configure your commercetools project. Setup types, subscriptions, states, and API Extensions.',
   },
-  cardDocumentationTitle: {
-    id: 'Welcome.cardDocumentationTitle',
-    defaultMessage: 'Documentation',
+  cardTypesTitle: {
+    id: 'Welcome.cardTypesTitle',
+    defaultMessage: 'Types',
   },
-  cardDocumentationContent: {
-    id: 'Welcome.cardDocumentationContent',
-    defaultMessage: 'Learn more about Custom Applications.',
+  cardTypesContent: {
+    id: 'Welcome.cardTypesContent',
+    defaultMessage: 'Customize your project types.',
   },
   cardDesignSystemTitle: {
     id: 'Welcome.cardDesignSystemTitle',

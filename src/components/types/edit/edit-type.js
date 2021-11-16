@@ -1,30 +1,31 @@
 import React from 'react';
-import { useApplicationContext } from '@commercetools-frontend/application-shell-connectors';
+import {useParams} from "react-router-dom"
+import { useHistory } from 'react-router-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { useApplicationContext } from '@commercetools-frontend/application-shell-connectors';
 import { useShowNotification } from '@commercetools-frontend/actions-global';
 import {
   DOMAINS,
-  NOTIFICATION_KINDS_SIDE,
-  GRAPHQL_TARGETS
+  NOTIFICATION_KINDS_SIDE
 } from '@commercetools-frontend/constants';
-import IconButton from '@commercetools-uikit/icon-button';
+import LoadingSpinner from '@commercetools-uikit/loading-spinner';
 import Spacings from '@commercetools-uikit/spacings';
-import { BinLinearIcon } from '@commercetools-uikit/icons';
+import { actions as sdkActions, useAsyncDispatch } from "@commercetools-frontend/sdk";
 import BackToList from '../../core/back-to-list';
 import View from '../../core/view';
 import ViewHeader from '../../core/view-header';
 import { useShowSideNotification } from '../../../hooks';
 import TypeForm from '../type-form';
-import CreateTypeMutation from '../create-type.ctp.graphql';
-import { useMcMutation } from '@commercetools-frontend/application-shell';
-import { useHistory } from 'react-router-dom';
+import DeleteType from '../delete';
 
 import messages from './messages';
 
-const CreateType = () => {
+const EditType = (props) => {
   const { push } = useHistory();
   const intl = useIntl();
   const { project } = useApplicationContext();
+  const asyncDispatch = useAsyncDispatch();
+  const {id} = useParams()
   const backToList=`/${project.key}/mc-types-editor/types`;
   const showSuccessNotification = useShowSideNotification(
     NOTIFICATION_KINDS_SIDE.success,
@@ -34,36 +35,32 @@ const CreateType = () => {
     kind: NOTIFICATION_KINDS_SIDE.error,
     domain: DOMAINS.SIDE,
   });
-  const [createType] = useMcMutation(CreateTypeMutation, {    
-    context: {
-      target: GRAPHQL_TARGETS.COMMERCETOOLS_PLATFORM,
-    },
-    onCompleted(result) {
-      showSuccessNotification();
-      push(`/${project.key}/mc-types-editor/types/${result.createTypeDefinition.id}`);
-    },
-    onError({ message }) {
-      showErrorNotification({
-        text: (
-          <FormattedMessage {...messages.createError} values={{ message }} />
-        ),
-      });
-    },
-  });
-
-  let state = {
-    isDeleteConfirmationDialogOpen: false,
-  };
-  
-
-  let openConfirmationDialog = () => {
-    this.state.isDeleteConfirmationDialogOpen = true;
-    this.setState({ isDeleteConfirmationDialogOpen: true });
-  };
-
-  let closeConfirmationDialog = () => {
-    this.setState({ isDeleteConfirmationDialogOpen: false });
-  };
+  const [loading, setLoading] = React.useState(false)
+  const [error, setError] = React.useState(false)
+  const [data, setData] = React.useState({});
+ 
+  React.useEffect(() => {
+    const fetchData = async () => {
+      setError(false);
+      setLoading(true);
+      try {
+        const response = await asyncDispatch(sdkActions.get({
+          service: 'types',
+          options: {
+            id: id
+          }
+        }));
+        setData(response);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+        setError(true);
+        showApiErrorNotification({ errors: error });
+      }
+      setLoading(false);
+    };
+    fetchData()
+  }, []);
 
   function onSubmit(values) {
     const { key, name, description, resourceTypeIds } = values;
@@ -77,47 +74,37 @@ const CreateType = () => {
     for(const k in description) {
       descriptions.push({"locale":k,"value":description[k]})
     }
-
-    return createType({
-      variables: {         
-        key,
-        name: names,
-        description: descriptions,
-        resourceTypeIds: resourceTypeIds
-      }
-    });
   }
 
   return (
     <View>
-      <ViewHeader
-        title={<FormattedMessage {...messages.title} />}
-        backToList={
-          <BackToList
-            href={backToList}
-            label={intl.formatMessage(messages.backButton)}
+      {loading && <LoadingSpinner />}
+      {error && <div>{JSON.stringify(error)}</div>}
+      {data?.id ? (
+        <>
+          <ViewHeader
+            title={<FormattedMessage {...messages.title} />}
+            backToList={
+              <BackToList
+                href={backToList}
+                label={intl.formatMessage(messages.backButton)}
+              />
+            }
+            commands={
+              <DeleteType typeId={id} typeVersion={data.version} />
+            }
           />
-        }
-        commands={
-          <Spacings.Inline alignItems="flexEnd">
-            <IconButton
-                  label={intl.formatMessage(
-                    messages.confirmDeleteTitle
-                  )}
-                  icon={<BinLinearIcon />}
-                  onClick={openConfirmationDialog}
-                />
-          </Spacings.Inline>
-        }
-      />
-      <Spacings.Inset scale="l">
-        <Spacings.Stack scale="m">
-          <TypeForm onSubmit={onSubmit} />
-        </Spacings.Stack>
-      </Spacings.Inset>
+          <Spacings.Inset scale="l">
+            <Spacings.Stack scale="m">
+              <TypeForm onSubmit={onSubmit} type={data} />
+            </Spacings.Stack>
+          </Spacings.Inset>
+        </>
+      ) : null}
+      
     </View>
   );
 };
-CreateType.displayName = 'CreateType';
+EditType.displayName = 'EditType';
 
-export default CreateType;
+export default EditType;

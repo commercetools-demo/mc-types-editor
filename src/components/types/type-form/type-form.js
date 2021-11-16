@@ -18,11 +18,14 @@ const initializeEmptyValues = () => ({
 });
 
 const initializeTypeValues = (type) => ({
-  key: type.key,
-  name: type.name,
-  description: type.description,
-  label: type.label,
-  resourceTypeIds: type.resourceTypeIds
+  key: type.key ? type.key : '',
+  name: type.name ? type.name : {
+    en: ''
+  },
+  description: type.description ? type.description : {
+    en: ''
+  },
+  resourceTypeIds: type.resourceTypeIds ? type.resourceTypeIds : [],
 });
 
 const TypeForm = ({ type, onSubmit }) => {
@@ -30,6 +33,8 @@ const TypeForm = ({ type, onSubmit }) => {
   const initialValues = type
     ? initializeTypeValues(type)
     : initializeEmptyValues();
+  
+  const editForm = type ? true : false;
 
   const stringSchema = yup
     .string()
@@ -49,7 +54,7 @@ const TypeForm = ({ type, onSubmit }) => {
       validationSchema={validationSchema}
       onSubmit={(values) => onSubmit(values)}
     >
-      {(props) => <Form {...props} />}
+      {(props) => <Form editMode={editForm} {...props} />}
     </Formik>
   );
 };

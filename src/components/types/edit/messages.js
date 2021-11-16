@@ -22,9 +22,4 @@ export default defineMessages({
     defaultMessage:
       'Something went wrong. The Type was not saved. {message}',
   },
-  confirmDeleteTitle: {
-    id: 'EditType.message.delete.title',
-    description: 'Confirm Delete',
-    defaultMessage: 'Delete Type',
-  },
 });
