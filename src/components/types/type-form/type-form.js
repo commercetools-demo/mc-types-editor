@@ -26,6 +26,7 @@ const initializeTypeValues = (type) => ({
     en: ''
   },
   resourceTypeIds: type.resourceTypeIds ? type.resourceTypeIds : [],
+  fieldDefinitions: type.fieldDefinitions ? type.fieldDefinitions : [],
 });
 
 const TypeForm = ({ type, onSubmit }) => {

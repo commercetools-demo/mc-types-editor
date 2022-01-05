@@ -17,6 +17,7 @@ import { useApplicationContext } from '@commercetools-frontend/application-shell
 import messages from './messages';
 import styles from './form.mod.css';
 import { RESOURCE_TYPES } from './constants';
+import AttributeInput from './attributes-input';
 
 const resourceTypes = RESOURCE_TYPES.map(t => ({label: t, value: t}));
 
@@ -30,6 +31,7 @@ const Form = ({
   handleBlur,
   handleChange,
   handleSubmit,
+  setFieldValue,
   editMode,
 }) => {
   
@@ -59,7 +61,7 @@ const Form = ({
               title={<FormattedMessage {...messages.nameTitle} />}
               isRequired
               errors={errors.name}
-              touched={touched.name}
+              touched={touched.name?true:false}
               onBlur={handleBlur}
               onChange={handleChange}
               renderError={(key, error) => error}
@@ -75,7 +77,7 @@ const Form = ({
               title={<FormattedMessage {...messages.descriptionTitle} />}
               isRequired
               errors={errors.description}
-              touched={touched.description}
+              touched={touched.description?true:false}
               onBlur={handleBlur}
               onChange={handleChange}
               renderError={(key, error) => error}
@@ -90,7 +92,7 @@ const Form = ({
               title={<FormattedMessage {...messages.keyTitle} />}
               isRequired
               errors={errors.key}
-              touched={touched.key}
+              touched={touched.key?true:false}
               onBlur={handleBlur}
               onChange={handleChange}
               renderError={(key, error) => error}
@@ -117,7 +119,21 @@ const Form = ({
         </Grid.Item>
       </Grid>
       </CollapsiblePanel>
-      
+      {editMode && <CollapsiblePanel
+        header={
+          <CollapsiblePanel.Header>
+            <FormattedMessage {...messages.typeInformationTitle} />
+          </CollapsiblePanel.Header>
+        }
+        className={styles.panel}
+      >
+        <AttributeInput
+          value={values.fieldDefinitions} 
+          onBlur={handleBlur}
+          onChange={setFieldValue}
+        />
+      </CollapsiblePanel>
+      }
       <Constraints.Horizontal constraint="scale">
         <PrimaryButton
           label={intl.formatMessage(messages.submitButton)}
@@ -134,12 +150,6 @@ Form.propTypes = {
     key: PropTypes.string.isRequired,
     name: PropTypes.objectOf(PropTypes.string),
     resourceTypeIds: PropTypes.arrayOf(PropTypes.string),
-  }).isRequired,
-  touched: PropTypes.shape({
-    key: PropTypes.bool,
-    name: PropTypes.objectOf(PropTypes.bool),
-    description: PropTypes.objectOf(PropTypes.bool),
-    resourceTypeIds: PropTypes.bool
   }).isRequired,
   errors: PropTypes.shape({
     key: PropTypes.object,

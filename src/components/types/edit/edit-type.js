@@ -11,6 +11,7 @@ import {
 import LoadingSpinner from '@commercetools-uikit/loading-spinner';
 import Spacings from '@commercetools-uikit/spacings';
 import { actions as sdkActions, useAsyncDispatch } from "@commercetools-frontend/sdk";
+import { createSyncTypes } from '@commercetools/sync-actions'
 import BackToList from '../../core/back-to-list';
 import View from '../../core/view';
 import ViewHeader from '../../core/view-header';
@@ -51,7 +52,6 @@ const EditType = (props) => {
           }
         }));
         setData(response);
-        console.log(response);
       } catch (error) {
         console.log(error);
         setError(true);
@@ -62,18 +62,38 @@ const EditType = (props) => {
     fetchData()
   }, []);
 
+  async function submitUpdateActions(updateActions) {
+    setError(false);
+    setLoading(true);
+    try {
+      const response = await asyncDispatch(sdkActions.post({
+        service: 'types',
+        options: {
+          id: id
+        },
+        payload: { version: data.version, actions: updateActions },
+      }));
+      setData(response);
+    } catch (error) {
+      console.log(error);
+      setError(true);
+      showApiErrorNotification({ errors: error });
+    }
+    setLoading(false);
+  }
   function onSubmit(values) {
-    const { key, name, description, resourceTypeIds } = values;
-
-    // Convert name from the format created by the text field to the format required by GraphQL
-    let names=[];
-    for(const k in name) {
-      names.push({"locale":k,"value":name[k]})
+    const { name, description, fieldDefinitions } = values;
+    console.log(values);
+    const syncTypes = createSyncTypes()
+    let newData = {
+      ...data,
+      name,
+      description,
+      fieldDefinitions
     }
-    let descriptions=[];
-    for(const k in description) {
-      descriptions.push({"locale":k,"value":description[k]})
-    }
+    const actions = syncTypes.buildActions(newData, data);
+    // Submit Updates
+    submitUpdateActions(actions);
   }
 
   return (
