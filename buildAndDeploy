@@ -1,0 +1,10 @@
+export FIREBASE_TARGET=mc-types-editor
+export GCP_PROJECT_ID=ct-sales-207211
+
+firebase use --add $GCP_PROJECT_ID
+firebase target:apply hosting $FIREBASE_TARGET $FIREBASE_TARGET
+
+yarn build
+# mc-scripts compile-html cross-env FIREBASE_TARGET=$FIREBASE_TARGET  --transformer $(pwd)/config/transformer-firebase.js
+mc-scripts compile-html --transformer $(pwd)/config/transformer-firebase.js
+firebase deploy

@@ -3,4 +3,7 @@ dist
 !.env
 .env.local
 yarn-error.log
+.firebase
+.firebaserc
+firebase.json
 
