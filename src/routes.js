@@ -7,7 +7,7 @@ import TypesList from './components/types/list';
 import CreateType from './components/types/new';
 import EditType from './components/types/edit';
 import Welcome from './components/welcome';
-import { PERMISSIONS } from './constants/permissions';
+import { PERMISSIONS } from './constants/constants';
 
 const ApplicationRoutes = () => {
   const match = useRouteMatch();
@@ -17,7 +17,7 @@ const ApplicationRoutes = () => {
   // For example, we can show an unauthorized page if the user does not have
   // the permission to `view` products.
   const canViewChannels = useIsAuthorized({
-    demandedPermissions: [PERMISSIONS.ViewProducts],
+    demandedPermissions: [PERMISSIONS.View],
   });
 
   return (

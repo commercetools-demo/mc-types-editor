@@ -3,28 +3,30 @@
   "entryPointUriPath": "mc-types-editor",
   "cloudIdentifier": "gcp-us",
   "env": {
+    "development": {
+      "initialProjectKey": "presales-sunrise-demo"
+    },
     "production": {
+      "applicationId": "ckzem4zgt830101yv3nmimsp5",
       "url": "https://mc-types-editor.firebaseapp.com"
     }
   },
-  "menuLinks": {
-    "icon": "GearIcon",
-    "defaultLabel": "Mc Types Editor",
+  "oAuthScopes": {
+    "view": ["view_types"],
+    "manage": ["manage_types"]
+  },
+  "icon": "${path:@commercetools-frontend/assets/application-icons/rocket.svg}",
+  "mainMenuLink": {
+    "defaultLabel": "Types Editor",
     "labelAllLocales": [],
-    "permissions": [],
-    "submenuLinks": [
-      {
-        "uriPath": "channels",
-        "defaultLabel": "Channels",
-        "labelAllLocales": [],
-        "permissions": []
-      },
-      {
-        "uriPath": "types",
-        "defaultLabel": "Types",
-        "labelAllLocales": [],
-        "permissions": []
-      }
-    ]
-  }
+    "permissions": []
+  },
+  "submenuLinks": [
+    {
+      "uriPath": "types",
+      "defaultLabel": "Types",
+      "labelAllLocales": [],
+      "permissions": []
+    }
+  ]
 }
