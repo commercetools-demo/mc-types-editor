@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
 import {
   Constraints,
+  ErrorMessage,
   CollapsiblePanel,
   TextField,
   LocalizedTextField,
@@ -17,7 +18,7 @@ import { useApplicationContext } from '@commercetools-frontend/application-shell
 import messages from './messages';
 import styles from './form.mod.css';
 import { RESOURCE_TYPES } from './constants';
-import AttributeInput from './attributes-input';
+import FieldInput from './fields-input';
 
 const resourceTypes = RESOURCE_TYPES.map(t => ({label: t, value: t}));
 
@@ -90,6 +91,7 @@ const Form = ({
               name="key"
               value={values.key}
               title={<FormattedMessage {...messages.keyTitle} />}
+              hint={<FormattedMessage {...messages.keyHint} />}
               isRequired
               errors={errors.key}
               touched={touched.key?true:false}
@@ -98,6 +100,10 @@ const Form = ({
               renderError={(key, error) => error}
               isDisabled={editMode}
             /> 
+            {errors.key && touched.key ? (
+              <ErrorMessage>{errors.key}</ErrorMessage>
+              ) : null
+            }
             </Card>
           </Grid.Item>
           <Grid.Item>
@@ -127,7 +133,7 @@ const Form = ({
         }
         className={styles.panel}
       >
-        <AttributeInput
+        <FieldInput
           value={values.fieldDefinitions} 
           onBlur={handleBlur}
           onChange={setFieldValue}

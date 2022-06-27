@@ -22,25 +22,17 @@ export const REFERENCE_BY = {
     Id: 'id',
 };
 
-export const RESOURCE_TYPES = [
-    'asset',
+export const REFERENCE_TYPES = [
+    'cart',
     'category',
     'channel',
     'customer',
-    'customer-group',
-    'cart-discount',
-    'discount-code',
-    'inventory-entry',
+    'key-value-document',
     'order',
-    'order-edit',
-    'line-item',
-    'custom-line-item',
-    'product-price',
-    'payment',
-    'payment-interface-interaction',
-    'shopping-list',
-    'shopping-list-text-line-item',
-    'store',
+    'product',
+    'product-type',
     'review',
+    'state',
+    'shipping-method',
+    'zone'
 ];
-

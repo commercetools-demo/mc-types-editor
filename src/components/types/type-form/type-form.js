@@ -42,7 +42,7 @@ const TypeForm = ({ type, onSubmit }) => {
     .required(<FormattedMessage {...messages.requiredFieldError} />);
   
   const validationSchema = yup.object({
-    key: stringSchema,
+    key: yup.string().min(2).max(256).matches(/^[A-Za-z0-9_-]+$/,'Invalid value for key field'),
     name: stringSchema,
     description: stringSchema,
     resourceTypeIds: yup.array().of(yup.string())

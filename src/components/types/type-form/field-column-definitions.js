@@ -1,27 +1,27 @@
 import memoize from 'memoize-one';
-import messages from './attribute-messages';
+import messages from './field-messages';
 
 export default memoize(formatMessage => [
   {
     key: 'name',
-    label: formatMessage(messages.columnAttributeName),
+    label: formatMessage(messages.columnFieldName),
     isSortable: false,
   },
   {
     key: 'label',
-    label: formatMessage(messages.columnAttributeLabel),
+    label: formatMessage(messages.columnFieldLabel),
     isSortable: false,
     width: 'minmax(150px, auto)',
   },
   {
     key: 'required',
-    label: formatMessage(messages.columnAttributeRequired),
+    label: formatMessage(messages.columnFieldRequired),
     flexGrow: 1,
     isSortable: false,
   },
   {
     key: 'type',
-    label: formatMessage(messages.columnAttributeType),
+    label: formatMessage(messages.columnFieldType),
     flexGrow: 1,
     isSortable: false,
   },

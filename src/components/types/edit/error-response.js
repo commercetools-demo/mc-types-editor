@@ -4,15 +4,15 @@ export const isDuplicateKeyError = (error) =>
   error.action &&
   error.action.type === 'setKey';
 
-export const hasAttributeDefinitionAlreadyExistsError = (error) =>
-  error.code === 'AttributeDefinitionAlreadyExists' &&
+export const hasFieldDefinitionAlreadyExistsError = (error) =>
+  error.code === 'FieldDefinitionAlreadyExists' &&
   error.action &&
-  error.action.type === 'addAttributeDefinition';
+  error.action.type === 'addFieldDefinition';
 
-export const hasAttributeDefinitionTypeConflictError = (error) =>
-  error.code === 'AttributeDefinitionTypeConflict' &&
+export const hasFieldDefinitionTypeConflictError = (error) =>
+  error.code === 'FieldDefinitionTypeConflict' &&
   error.action &&
-  error.action.type === 'addAttributeDefinition';
+  error.action.type === 'addFieldDefinition';
 
 export const hasEnumKeyAlreadyExistsError = (error) =>
   error.code === 'EnumKeyAlreadyExists' &&

@@ -7,31 +7,31 @@ import SecondaryButton from '@commercetools-uikit/secondary-button';
 import { CheckActiveIcon, CheckInactiveIcon, BinFilledIcon, PlusBoldIcon } from '@commercetools-uikit/icons';
 import Spacings from '@commercetools-uikit/spacings';
 import { FocusEventHandler, ChangeEventHandler } from 'react';
-import { filterDataAttributes, warning } from '@commercetools-uikit/utils';
+import { filterDataFields, warning } from '@commercetools-uikit/utils';
 import Constraints from '@commercetools-uikit/constraints';
 import { getInputStyles } from '@commercetools-uikit/input-utils';
 import Text from '@commercetools-uikit/text';
-import AttributeDefinitionInput from '../attribute-definition-input';
-import createColumnDefinitions from './attribute-column-definitions';
-import messages from './attribute-messages';
+import FieldDefinitionInput from '../field-definition-input';
+import createColumnDefinitions from './field-column-definitions';
+import messages from './field-messages';
 
-const AttributeInput = (props) => {
+const FieldInput = (props) => {
     const intl = useIntl();
-    let attributes = props.value;
-    let editAttribute = null;
-    let addAttribute = null;
+    let fields = props.value;
+    let editField = null;
+    let addField = null;
 
-    const [attributeDefinitionInputOpen, setAttributeDefinitionInputOpen] = useState(false);
+    const [FieldDefinitionInputOpen, setFieldDefinitionInputOpen] = useState(false);
     
-    const [attributeDefinitionInputData, setAttributeDefinitionInputData] = useState();
+    const [FieldDefinitionInputData, setFieldDefinitionInputData] = useState();
 
     const deleteItem = (name) => {
-        let newSet = attributes.filter((item) => item.name !== name);
+        let newSet = fields.filter((item) => item.name !== name);
         props.onChange("fieldDefinitions", newSet);
     }
-    const updateAttributeDefinition = (attributeDefinition) => {
-        let newSet = attributes.concat([attributeDefinition]);
-        setAttributeDefinitionInputOpen(false)
+    const updateFieldDefinition = (FieldDefinition) => {
+        let newSet = fields.concat([FieldDefinition]);
+        setFieldDefinitionInputOpen(false)
         props.onChange("fieldDefinitions", newSet);
     }
 
@@ -72,25 +72,24 @@ const AttributeInput = (props) => {
     return (
         <>
             <div style={{ display: 'block', width: '100%' }}>
-            <AttributeDefinitionInput
-                isOpen={attributeDefinitionInputOpen}
-                onClose={() => {setAttributeDefinitionInputOpen(false)}}
-                onSubmit={updateAttributeDefinition}
-                existingAttributeDefinition={ attributeDefinitionInputData} />
+            <FieldDefinitionInput
+                isOpen={FieldDefinitionInputOpen}
+                onClose={() => {setFieldDefinitionInputOpen(false)}}
+                onSubmit={updateFieldDefinition}
+                existingFieldDefinition={ FieldDefinitionInputData} />
             <Spacings.Stack scale="m">
                 <Spacings.Inline justifyContent="space-between">
-                <Text.Headline as="h3" intlMessage={messages.attributeHeaderTitle} />
+                <Text.Headline as="h3" intlMessage={messages.fieldHeaderTitle} />
                 <SecondaryButton
-                    onClick={() => {setAttributeDefinitionInputOpen(true)}}
+                    onClick={() => {setFieldDefinitionInputOpen(true)}}
                     iconLeft={<PlusBoldIcon />}
-                    label={intl.formatMessage(messages.addAttribute)}
+                    label={intl.formatMessage(messages.addField)}
                 />
                 </Spacings.Inline>
                 <DataTable
                     columns={createColumnDefinitions(intl.formatMessage)}
                     isCondensed={false}
-                    rows={attributes}
-                    columns={createColumnDefinitions(intl.formatMessage)}
+                    rows={fields}
                     itemRenderer={itemRendered}
                     onRowClick={rowClick}
                 />
@@ -100,8 +99,8 @@ const AttributeInput = (props) => {
     );
 };
 
-AttributeInput.displayName = 'AttributeInput';
-AttributeInput.propTypes = {
+FieldInput.displayName = 'FieldInput';
+FieldInput.propTypes = {
     id: PropTypes.string,
     value: PropTypes.array,
     onChange: PropTypes.func,
@@ -111,4 +110,4 @@ AttributeInput.propTypes = {
     hasWarning: PropTypes.bool,
 };
 
-export default AttributeInput;
+export default FieldInput;

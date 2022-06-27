@@ -1,12 +1,9 @@
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import { useIsAuthorized } from '@commercetools-frontend/permissions';
 import { PageUnauthorized } from '@commercetools-frontend/application-components';
-import Spacings from '@commercetools-uikit/spacings';
-import Channels from './components/channels';
 import TypesList from './components/types/list';
 import CreateType from './components/types/new';
 import EditType from './components/types/edit';
-import Welcome from './components/welcome';
 import { PERMISSIONS } from './constants/constants';
 
 const ApplicationRoutes = () => {
@@ -21,14 +18,7 @@ const ApplicationRoutes = () => {
   });
 
   return (
-      <Switch>
-        <Route path={`${match.path}/channels`}>
-          {canViewChannels ? (
-            <Channels linkToWelcome={match.url} />
-          ) : (
-            <PageUnauthorized />
-          )}
-        </Route>
+      <Switch>        
         <Route path={`${match.path}/types/new`}>
           {canViewChannels ? (
             <CreateType />
@@ -43,15 +33,12 @@ const ApplicationRoutes = () => {
             <PageUnauthorized />
           )}
         </Route>
-        <Route path={`${match.path}/types`}>
+        <Route >
           {canViewChannels ? (
             <TypesList />
           ) : (
             <PageUnauthorized />
           )}
-        </Route>
-        <Route>
-          <Welcome />
         </Route>
       </Switch>
   );

@@ -16,24 +16,29 @@ export default defineMessages({
     description: 'Title for key field',
     defaultMessage: 'Key',
   },
+  keyHint: {
+    id: 'Type.form.key.hint',
+    description: 'Hint for key field',
+    defaultMessage: 'May only contain between 2 and 256 alphanumeric characters, underscores, or hyphens (no spaces or special characters like ñ, ü, #, %).',
+  },
   resourceTypeIdsTitle: {
     id: 'Type.form.resourceTypeIds.title',
     description: 'Title for Resource Type IDs field',
     defaultMessage: 'Resource Type IDs',
   },
-  attributesTitle: {
+  fieldsTitle: {
     id: 'Type.form.fieldDefinitions.title',
     description: 'Title for fieldDefinitions field',
     defaultMessage: 'fieldDefinitions',
   },
   addFieldDefinitionButton: {
     id: 'Type.form.button.addFieldDefinition',
-    description: 'Label for add attribute button',
+    description: 'Label for add field button',
     defaultMessage: 'Add FieldDefinition',
   },
   removeFieldDefinitionButton: {
     id: 'Type.form.button.removeFieldDefinition',
-    description: 'Label for remove attribute button',
+    description: 'Label for remove field button',
     defaultMessage: 'Remove FieldDefinition',
   },
   nameTitle: {
@@ -116,8 +121,8 @@ export default defineMessages({
     description: 'Label for fieldDefinitions reference value',
     defaultMessage: 'Reference',
   },
-  attributeSettingsTitle: {
-    id: 'Type.form.attributeSettings.title',
+  fieldSettingsTitle: {
+    id: 'Type.form.fieldSettings.title',
     description: 'Title for fieldDefinitions settings fields',
     defaultMessage: 'Field Definition Settings',
   },

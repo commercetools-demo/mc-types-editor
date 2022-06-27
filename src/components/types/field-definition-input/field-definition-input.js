@@ -13,13 +13,14 @@ import {
 } from '@commercetools-frontend/ui-kit';
 import LabelRequired from '../../core/fields/label-required';
 import PageBottomSpacer from '../../core/page-bottom-spacer';
-import AttributeDefinitionForm from '../attribute-definition-form';
+import FieldDefinitionForm from '../field-definition-form';
 import messages from './messages';
 
 
 const initializeEmptyValues = () => ({
     type: {
-        name: 'String'
+        name: 'String',
+        referenceTypeId: ''
     },
     name:  '',
     label: {
@@ -29,20 +30,21 @@ const initializeEmptyValues = () => ({
     inputHint: 'SingleLine',
   });
   
-const initializeAttributeValues = (attribute) => ({
+// TODO: edit existing
+const initializeFieldValues = (field) => ({
 });
-const AttributeDefinitionInput = (props) => {
+
+const FieldDefinitionInput = (props) => {
     const intl = useIntl();
-    const initialValues = props.existingAttributeDefinition
-      ? initializeAttributeValues(props.existingAttributeDefinition)
+    const initialValues = props.existingFieldDefinition
+      ? initializeFieldValues(props.existingFieldDefinition)
       : initializeEmptyValues();
       const stringSchema = yup
         .string()
         .required(<FormattedMessage {...messages.requiredFieldError} />);
       
       const validationSchema = yup.object({
-        type: stringSchema,
-        name: stringSchema,
+        name: yup.string().min(2).max(36).matches(/^[A-Za-z0-9_-]+$/, 'Field Name must contain only letters, digits, "_" or "-" and no spaces!'),
         label: stringSchema,
         required: yup.boolean(),
         type: yup.object(),
@@ -85,21 +87,21 @@ const AttributeDefinitionInput = (props) => {
                     onSubmit={(values) => props.onSubmit(values)}
                     innerRef={formRef}
                     >
-                    {(props) => <AttributeDefinitionForm {...props} />}
+                    {(props) => <FieldDefinitionForm {...props} />}
                 </Formik>
                 <PageBottomSpacer />
             </CustomFormModalPage>
       );
   };
 
-  AttributeDefinitionInput.displayName = 'AttributeDefinitionInput';
-  AttributeDefinitionInput.propTypes = {
+  FieldDefinitionInput.displayName = 'FieldDefinitionInput';
+  FieldDefinitionInput.propTypes = {
       isOpen: PropTypes.bool,
     onSubmit: PropTypes.func,
     onClose: PropTypes.func,
-    existingAttributeDefinition: PropTypes.object,
+    existingFieldDefinition: PropTypes.object,
     intl: PropTypes.object,
     languages: PropTypes.arrayOf(PropTypes.string)
   };
   
-  export default AttributeDefinitionInput;
+  export default FieldDefinitionInput;

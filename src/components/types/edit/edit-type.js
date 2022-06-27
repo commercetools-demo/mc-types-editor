@@ -74,6 +74,7 @@ const EditType = (props) => {
         payload: { version: data.version, actions: updateActions },
       }));
       setData(response);
+      push(backToList);
     } catch (error) {
       console.log(error);
       setError(true);
