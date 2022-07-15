@@ -6,16 +6,12 @@ import IconButton from '@commercetools-uikit/icon-button';
 import SecondaryButton from '@commercetools-uikit/secondary-button';
 import { CheckActiveIcon, CheckInactiveIcon, BinFilledIcon, PlusBoldIcon } from '@commercetools-uikit/icons';
 import Spacings from '@commercetools-uikit/spacings';
-import { FocusEventHandler, ChangeEventHandler } from 'react';
-import { filterDataFields, warning } from '@commercetools-uikit/utils';
-import Constraints from '@commercetools-uikit/constraints';
-import { getInputStyles } from '@commercetools-uikit/input-utils';
 import Text from '@commercetools-uikit/text';
 import FieldDefinitionInput from '../field-definition-input';
 import createColumnDefinitions from './field-column-definitions';
 import messages from './field-messages';
 
-const FieldInput = (props) => {
+const FieldTable = (props) => {
     const intl = useIntl();
     let fields = props.value;
     let editField = null;
@@ -29,8 +25,22 @@ const FieldInput = (props) => {
         let newSet = fields.filter((item) => item.name !== name);
         props.onChange("fieldDefinitions", newSet);
     }
+
+    function formToDoc(fd) {
+      if(!fd.isSet) {
+          return fd;
+      }
+      return {
+          ... fd,
+          type: {
+              name: 'Set',
+              elementType: fd.type
+          }
+      }
+    }
+
     const updateFieldDefinition = (FieldDefinition) => {
-        let newSet = fields.concat([FieldDefinition]);
+        let newSet = fields.concat([formToDoc(FieldDefinition)]);
         setFieldDefinitionInputOpen(false)
         props.onChange("fieldDefinitions", newSet);
     }
@@ -99,8 +109,8 @@ const FieldInput = (props) => {
     );
 };
 
-FieldInput.displayName = 'FieldInput';
-FieldInput.propTypes = {
+FieldTable.displayName = 'FieldTable';
+FieldTable.propTypes = {
     id: PropTypes.string,
     value: PropTypes.array,
     onChange: PropTypes.func,
@@ -110,4 +120,4 @@ FieldInput.propTypes = {
     hasWarning: PropTypes.bool,
 };
 
-export default FieldInput;
+export default FieldTable;

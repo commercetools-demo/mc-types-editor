@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom"
 import { useHistory } from 'react-router-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useApplicationContext } from '@commercetools-frontend/application-shell-connectors';
-import { useShowNotification } from '@commercetools-frontend/actions-global';
+import { useShowNotification, showApiErrorNotification } from '@commercetools-frontend/actions-global';
 import {
   DOMAINS,
   NOTIFICATION_KINDS_SIDE
@@ -53,9 +53,8 @@ const EditType = (props) => {
         }));
         setData(response);
       } catch (error) {
-        console.log(error);
-        setError(true);
-        showApiErrorNotification({ errors: error });
+        console.log(error);        
+        showApiErrorNotification({ errors: error.message });
       }
       setLoading(false);
     };
@@ -63,6 +62,7 @@ const EditType = (props) => {
   }, []);
 
   async function submitUpdateActions(updateActions) {
+    console.log('update actions',updateActions);
     setError(false);
     setLoading(true);
     try {
@@ -78,10 +78,12 @@ const EditType = (props) => {
     } catch (error) {
       console.log(error);
       setError(true);
-      showApiErrorNotification({ errors: error });
+      showApiErrorNotification({ errors: error.message });
     }
     setLoading(false);
   }
+
+  
   function onSubmit(values) {
     const { name, description, fieldDefinitions } = values;
     console.log(values);
@@ -92,6 +94,7 @@ const EditType = (props) => {
       description,
       fieldDefinitions
     }
+    console.log(data,newData);
     const actions = syncTypes.buildActions(newData, data);
     // Submit Updates
     submitUpdateActions(actions);

@@ -5,9 +5,6 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { CustomFormModalPage } from '@commercetools-frontend/application-components';
 import {
-  BinLinearIcon,
-  IconButton,
-  Spacings,
   SecondaryButton,
   RevertIcon,
 } from '@commercetools-frontend/ui-kit';
@@ -22,6 +19,7 @@ const initializeEmptyValues = () => ({
         name: 'String',
         referenceTypeId: ''
     },
+    isSet: false,
     name:  '',
     label: {
       en: ''

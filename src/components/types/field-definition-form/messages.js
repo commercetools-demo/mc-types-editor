@@ -31,6 +31,11 @@ export default defineMessages({
     description: 'Title for fieldDefinitions required field',
     defaultMessage: 'Required Field',
   },
+  setTitle: {
+    id: 'FieldForm.isSet.title',
+    description: 'Title for fieldDefinitions isSet field',
+    defaultMessage: 'Set',
+  },
   referenceTitle: {
     id: 'FieldForm.reference.title',
     description: 'Title for fieldDefinitions reference field',

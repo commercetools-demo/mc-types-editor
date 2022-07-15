@@ -152,10 +152,5 @@ const Types = (props) => {
   );
 };
 Types.displayName = 'Types';
-/* remove?
-Types.propTypes = {
-  linkToWelcome: PropTypes.string.isRequired,
-};
-*/
 
 export default Types;

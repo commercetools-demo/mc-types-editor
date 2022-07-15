@@ -112,7 +112,15 @@ const FieldDefinitionForm = ({
               </Card>
             )
           }
-          
+           <Card type="flat">
+           <CheckboxInput
+              name="isSet"
+              onChange={handleChange}
+              isChecked={values.isSet}
+            >
+              <FormattedMessage {...messages.setTitle} />
+            </CheckboxInput>
+          </Card>
           <Card type="flat">
             <CheckboxInput
               name="required"
@@ -146,6 +154,7 @@ FieldDefinitionForm.propTypes = {
     name: PropTypes.object,
     label: PropTypes.object,
     type: PropTypes.object,
+    isSet: PropTypes.object,
     inputHint: PropTypes.object,
   }).isRequired,
   dirty: PropTypes.bool,

@@ -18,7 +18,7 @@ import { useApplicationContext } from '@commercetools-frontend/application-shell
 import messages from './messages';
 import styles from './form.mod.css';
 import { RESOURCE_TYPES } from './constants';
-import FieldInput from './fields-input';
+import FieldTable from './field-table';
 
 const resourceTypes = RESOURCE_TYPES.map(t => ({label: t, value: t}));
 
@@ -133,7 +133,7 @@ const Form = ({
         }
         className={styles.panel}
       >
-        <FieldInput
+        <FieldTable
           value={values.fieldDefinitions} 
           onBlur={handleBlur}
           onChange={setFieldValue}
