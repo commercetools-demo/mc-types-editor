@@ -21,6 +21,7 @@ export const REFERENCE_BY = {
 export const RESOURCE_TYPES = [
   'address',
   'asset',
+  'business-unit',
   'cart-discount',
   'category',
   'channel',
@@ -39,10 +40,12 @@ export const RESOURCE_TYPES = [
   'payment-interface-interaction',
   'product-price',
   'product-selection',
+  'quote',
   'review',
   'shipping-method',
   'shopping-list',
   'shopping-list-text-line-item',
+  'standalone-price',
   'store',
   'transaction'
 ];
